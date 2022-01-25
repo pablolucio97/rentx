@@ -1,8 +1,9 @@
 import React from 'react';
-import { Container } from './styles';
-export function screens() {
+import { Container, Title } from './styles';
+export function Home() {
    return (
   <Container>
+      <Title>RentX</Title>
   </Container>
 )
 }
