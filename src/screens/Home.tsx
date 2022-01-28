@@ -6,7 +6,8 @@ import {
   Container,
   TotalCars,
   Header,
-  HeaderContent
+  HeaderContent,
+  CarList
 } from './styles';
 import Logo from '../../assets/logo.svg'
 import { Car } from '../components/Car';
@@ -50,12 +51,11 @@ export function Home() {
           </TotalCars>
         </HeaderContent>
       </Header>
-      <Car
-          data={carData}
-      />
-      <Car
-          data={carDataTwo}
-      />
+      <CarList 
+        data={[1,2,3,1,1,3]}
+        renderItem={({item}) => <Car data={carData}/> }
+        showsVerticalScrollIndicator={false}
+      />  
     </Container>
   )
 }
