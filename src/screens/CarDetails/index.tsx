@@ -1,10 +1,16 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
+import AcelerationSvg from '../../../assets/car.svg';
+import Exchangevg from '../../../assets/exchange.svg';
+import ForceSvg from '../../../assets/force.svg';
+import GasolineSvg from '../../../assets/gasoline.svg';
+import PeopleSvg from '../../../assets/people.svg';
+import SpeedSvg from '../../../assets/speed.svg';
+import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 import {
-
-    Brand,
+    About, Acessories, Brand,
     CarImages,
     Container,
     Content,
@@ -13,11 +19,12 @@ import {
     Header,
     Name,
     Period,
-    Price,
-    About,
-    Rent
-
+    Price, Rent
 } from './styles';
+
+
+
+
 
 
 export function CarDetails() {
@@ -58,6 +65,32 @@ export function CarDetails() {
                         <Price>R$ 580</Price>
                     </Rent>
                 </Details>
+                <Acessories>
+                    <Acessory
+                        name='362Km/h'
+                        icon={SpeedSvg}
+                    />
+                    <Acessory
+                        name='3.2s'
+                        icon={AcelerationSvg}
+                    />
+                    <Acessory
+                        name='380HP'
+                        icon={ForceSvg}
+                    />
+                    <Acessory
+                        name='Automatico'
+                        icon={Exchangevg}
+                    />
+                    <Acessory
+                        name='Gasolina'
+                        icon={GasolineSvg}
+                    />
+                    <Acessory
+                        name='2 pessoas'
+                        icon={PeopleSvg}
+                    />
+                </Acessories>
                 <About>
                     Este é automóvel desportivo.
                     Surgiu do lendário touro de lide indultado na praça Real Maestranza

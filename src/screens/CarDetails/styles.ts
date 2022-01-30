@@ -66,6 +66,17 @@ export const About = styled.Text`
   font-size: ${RFValue(14)}px;
   color: ${({ theme }) => theme.colors.text};
   text-align: justify;
-
+  line-height: ${RFValue(24)}px;
+  
+  
   margin-top: 16px;
+  `;
+
+export const Acessories = styled.View`
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.background_primary};
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 8px;
 `;
