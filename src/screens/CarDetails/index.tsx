@@ -8,6 +8,7 @@ import PeopleSvg from '../../../assets/people.svg';
 import SpeedSvg from '../../../assets/speed.svg';
 import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
+import { Button } from '../../components/Button';
 import { ImageSlider } from '../../components/ImageSlider';
 import {
     About, Acessories, Brand,
@@ -19,7 +20,9 @@ import {
     Header,
     Name,
     Period,
-    Price, Rent
+    Price, 
+    Rent,
+    Footer
 } from './styles';
 
 
@@ -96,7 +99,17 @@ export function CarDetails() {
                     Surgiu do lendário touro de lide indultado na praça Real Maestranza
                     de Sevilla. É um belíssimo carro para quem gosta de acelerar.
                 </About>
+                <About>
+                    Este é automóvel desportivo.
+                    Surgiu do lendário touro de lide indultado na praça Real Maestranza
+                    de Sevilla. É um belíssimo carro para quem gosta de acelerar.
+                </About>
             </Content>
+            <Footer>
+                <Button
+                    title='Confirmar'
+                />
+            </Footer>
         </Container>
     )
 }
