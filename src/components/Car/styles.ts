@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
-import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
-import FastImage from 'react-native-fast-image'
 
-export const Container = styled(RectButton)`
+export const Container = styled.TouchableOpacity.attrs({
+  activeOpacity: .8
+})`
   width: 100%;
   height: 126px;
   background-color: ${({ theme }) => theme.colors.background_secondary};

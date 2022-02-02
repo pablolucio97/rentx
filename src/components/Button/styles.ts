@@ -5,7 +5,7 @@ interface ButtonProps {
     color: string
 }
 
-export const Container = styled.View<ButtonProps>`
+export const Container = styled.TouchableOpacity<ButtonProps>`
 flex: 1;
 justify-content: center;
 align-items: center;

@@ -6,12 +6,12 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.shape};
-`;
+  `;
 
 export const Header = styled.View`
   width: 100%;
   height: 112px;
-
+  
   justify-content: flex-end;
   
   background-color: ${({ theme }) => theme.colors.shape_dark};
@@ -26,16 +26,15 @@ export const HeaderContent = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
+  
   background-color: ${({ theme }) => theme.colors.shape_dark};
-`;
+  `;
 
 export const TotalCars = styled.Text`
   font-size: ${RFValue(12)}px;
   color: ${({ theme }) => theme.colors.text};
-`;
+  `;
 
 export const CarList = styled.FlatList`
-  padding: 24px;
-  padding-left: 16px;
-`
+  padding: 24px 40px 24px 12px;
+  `

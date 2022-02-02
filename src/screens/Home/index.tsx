@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize';
+import {useNavigation} from '@react-navigation/native'
 
 import {
   Container,
@@ -9,10 +10,18 @@ import {
   HeaderContent,
   CarList
 } from './styles';
-import Logo from '../../assets/logo.svg'
-import { Car } from '../components/Car';
+import Logo from '../../../assets/logo.svg'
+import { Car } from '../../components/Car';
 
 export function Home() {
+
+  const navigation = useNavigation()
+
+  function handleNavigation(screen: string){
+    //@ts-ignore
+    navigation.navigate({name: screen})
+  }
+
 
   const carData = {
     brand: 'Audi',
@@ -53,7 +62,12 @@ export function Home() {
       </Header>
       <CarList 
         data={[1,2,3,1,1,3]}
-        renderItem={({item}) => <Car data={carData}/> }
+        renderItem={({item}) =>
+         <Car 
+         data={carData}
+         //@ts-ignore
+         onPress={() => handleNavigation('CarDetails')}
+         /> }
         showsVerticalScrollIndicator={false}
       />  
     </Container>

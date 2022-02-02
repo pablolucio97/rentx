@@ -13,6 +13,8 @@ import {
 } from './styles';
 
 import GasolineSvg from '../../../assets/gasoline.svg'
+import { TouchableOpacityProps } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 interface CarData {
     brand: string;
@@ -24,15 +26,26 @@ interface CarData {
     },
 }
 
-interface Props {
+interface Props extends TouchableOpacityProps {
     data: CarData;
 }
 
 
-export function Car({ data }: Props) {
+export function Car({ data, ...rest }: Props) {
+
+    const navigation = useNavigation()
+
+    function handleNavigation(screen: string) {
+        //@ts-ignore
+        navigation.navigate({ name: screen })
+    }
+
 
     return (
-        <Container>
+        //@ts-ignore
+        <Container
+            {...rest}
+        >
             <Details>
                 <Brand>{data.brand}</Brand>
                 <Name>{data.name}</Name>

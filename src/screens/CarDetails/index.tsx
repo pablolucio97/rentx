@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useTheme } from 'styled-components';
 import AcelerationSvg from '../../../assets/car.svg';
@@ -34,11 +35,21 @@ export function CarDetails() {
         'https://www.pngkit.com/png/detail/237-2375768_2018-porsche-718-cayman-vs-porsche-718-cayman.png'
     ]
 
+    const navigation = useNavigation()
+
+    function handleNavigation(screen: string){
+      //@ts-ignore
+      navigation.navigate({name: screen})
+    }
+  
+
     return (
-        <Container>
+        <Container
+        >
             <Header>
                 <BackButton
                     color={theme.colors.text_detail}
+                    onPress={() => navigation.goBack()}
                 />
             </Header>
             <CarImages>
@@ -98,6 +109,7 @@ export function CarDetails() {
             <Footer>
                 <Button
                     title='Confirmar'
+                    onPress={() => handleNavigation('SchedulingDetails')}
                 />
             </Footer>
         </Container>
