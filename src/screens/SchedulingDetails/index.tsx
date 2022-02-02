@@ -1,5 +1,8 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
+import { Feather } from '@expo/vector-icons'
+
+
 import AcelerationSvg from '../../../assets/car.svg';
 import Exchangevg from '../../../assets/exchange.svg';
 import ForceSvg from '../../../assets/force.svg';
@@ -10,8 +13,10 @@ import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
 import { Button } from '../../components/Button';
 import { ImageSlider } from '../../components/ImageSlider';
+
 import {
-    About, Acessories, Brand,
+    Acessories,
+    Brand,
     CarImages,
     Container,
     Content,
@@ -20,12 +25,22 @@ import {
     Header,
     Name,
     Period,
-    Price, 
+    Price,
     Rent,
+    RentalPeriod,
+    DateTitle,
+    DateValue,
+    DateInfo,
+    CalenderIconContainer,
+    RentalPrice,
+    RentalPriceLabel,
+    RentalPriceDetails,
+    RentalPriceTotal,
+    RentalPriceQuota,
     Footer
 } from './styles';
 
-export function CarDetails() {
+export function SchedulingDetails() {
 
     const theme = useTheme()
 
@@ -89,11 +104,36 @@ export function CarDetails() {
                         icon={PeopleSvg}
                     />
                 </Acessories>
-                <About>
-                    Este é automóvel desportivo.
-                    Surgiu do lendário touro de lide indultado na praça Real Maestranza
-                    de Sevilla. É um belíssimo carro para quem gosta de acelerar.
-                </About>
+                <RentalPeriod>
+                    <CalenderIconContainer>
+                        <Feather
+                            name='calendar'
+                            size={24}
+                            color={theme.colors.shape}
+                        />
+                    </CalenderIconContainer>
+                    <DateInfo>
+                        <DateTitle>De</DateTitle>
+                        <DateValue>05/02/2022</DateValue>
+                    </DateInfo>
+                    <Feather
+                        name='chevron-right'
+                        size={12}
+                        color={theme.colors.text}
+                    />
+                       <DateInfo>
+                        <DateTitle>Até</DateTitle>
+                        <DateValue>10/02/2022</DateValue>
+                    </DateInfo>
+                </RentalPeriod>
+                <RentalPrice>
+                    <RentalPriceLabel>TOTAL</RentalPriceLabel>
+                    <RentalPriceDetails>
+                        <RentalPriceQuota>R$ 500 x3 diárias</RentalPriceQuota>
+                        <RentalPriceTotal>R$ 2.900,00</RentalPriceTotal>
+                    </RentalPriceDetails>
+                </RentalPrice>
+
             </Content>
             <Footer>
                 <Button

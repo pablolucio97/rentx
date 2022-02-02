@@ -22,7 +22,7 @@ export function Calendar() {
             'Outubro',
             'Novembro',
             'Dezembro'
-],
+        ],
         monthNamesShort: [
             'Jan',
             'FeV',
@@ -36,7 +36,7 @@ export function Calendar() {
             'Out',
             'Nov',
             'Dez'
-],
+        ],
         dayNames: [
             'Domingo',
             'Segunda',
@@ -45,7 +45,7 @@ export function Calendar() {
             'Quinta',
             'Sexta',
             'Sabado'
-],
+        ],
         dayNamesShort: [
             'DOM',
             'SEG',
@@ -54,7 +54,8 @@ export function Calendar() {
             'QUI',
             'SEX',
             'SAB'
-],
+        ],
+        //@ts-ignore
         today: 'Hoje'
     }
 
