@@ -1,15 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from 'styled-components';
+
+import { api } from '../../services/api'
+
 import AcelerationSvg from '../../../assets/car.svg';
 import Exchangevg from '../../../assets/exchange.svg';
 import ForceSvg from '../../../assets/force.svg';
 import GasolineSvg from '../../../assets/gasoline.svg';
 import PeopleSvg from '../../../assets/people.svg';
 import SpeedSvg from '../../../assets/speed.svg';
+
 import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
 import { Button } from '../../components/Button';
+
 import { ImageSlider } from '../../components/ImageSlider';
 import {
     About, Acessories, Brand,
@@ -21,7 +26,7 @@ import {
     Header,
     Name,
     Period,
-    Price, 
+    Price,
     Rent,
     Footer
 } from './styles';
@@ -37,11 +42,10 @@ export function CarDetails() {
 
     const navigation = useNavigation()
 
-    function handleNavigation(screen: string){
-      //@ts-ignore
-      navigation.navigate({name: screen})
+    function handleNavigation(screen: string) {
+        //@ts-ignore
+        navigation.navigate({ name: screen })
     }
-  
 
     return (
         <Container

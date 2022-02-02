@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize';
-import {useNavigation} from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 
 import {
   Container,
@@ -12,35 +12,38 @@ import {
 } from './styles';
 import Logo from '../../../assets/logo.svg'
 import { Car } from '../../components/Car';
+import { api } from '../../services/api';
+import { CarProps} from '../../types/cars'
+
+
+
 
 export function Home() {
 
   const navigation = useNavigation()
 
-  function handleNavigation(screen: string){
+  const [cars, setCars] = useState<CarProps[]>([])
+  const [loading, setLoading] = useState(true)
+
+  function handleNavigation(screen: string) {
     //@ts-ignore
-    navigation.navigate({name: screen})
+    navigation.navigate({ name: screen })
   }
 
-
-  const carData = {
-    brand: 'Audi',
-    name: 'Audi Coupe',
-    rent: {
-      period: 'Ao dia',
-      price: 120
-    },
-    thumbnail: 'https://p.kindpng.com/picc/s/423-4235443_audi-a5-sportback-quattro-petrol-hd-png-download.png'
-  }
-  const carDataTwo = {
-    brand: 'Porshe',
-    name: 'Porshe Cayman',
-    rent: {
-      period: 'Ao dia',
-      price: 230
-    },
-    thumbnail: 'https://www.pngkit.com/png/detail/237-2375768_2018-porsche-718-cayman-vs-porsche-718-cayman.png'
-  }
+  useEffect(() => {
+    async function fetchCars() {
+      try {
+        const response = await api.get('/cars')
+        setCars(response.data)
+      } catch (error) {
+        console.log(error)
+        throw new Error('Erro ao buscar carros')
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchCars()
+  }, [])
 
   return (
     <Container>
@@ -60,16 +63,17 @@ export function Home() {
           </TotalCars>
         </HeaderContent>
       </Header>
-      <CarList 
-        data={[1,2,3,1,1,3]}
-        renderItem={({item}) =>
-         <Car 
-         data={carData}
-         //@ts-ignore
-         onPress={() => handleNavigation('CarDetails')}
-         /> }
+      <CarList
+        data={cars}
+        renderItem={({ item }) =>
+          <Car
+            data={item}
+            //@ts-ignore
+            onPress={() => handleNavigation('CarDetails')}
+          />}
+          keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
-      />  
+      />
     </Container>
   )
 }
