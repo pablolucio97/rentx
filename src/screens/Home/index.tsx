@@ -13,7 +13,8 @@ import {
 import Logo from '../../../assets/logo.svg'
 import { Car } from '../../components/Car';
 import { api } from '../../services/api';
-import { CarProps} from '../../types/cars'
+import { CarProps } from '../../types/cars'
+import { Loading } from '../../components/Loading';
 
 
 
@@ -63,17 +64,23 @@ export function Home() {
           </TotalCars>
         </HeaderContent>
       </Header>
-      <CarList
-        data={cars}
-        renderItem={({ item }) =>
-          <Car
-            data={item}
-            //@ts-ignore
-            onPress={() => handleNavigation('CarDetails')}
-          />}
+      {loading ?
+        <Loading
+          isLoading={loading}
+        />
+        :
+        <CarList
+          data={cars}
+          renderItem={({ item }) =>
+            <Car
+              data={item}
+              //@ts-ignore
+              onPress={() => handleNavigation('CarDetails')}
+            />}
           keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-      />
+          showsVerticalScrollIndicator={false}
+        />
+      }
     </Container>
   )
 }
