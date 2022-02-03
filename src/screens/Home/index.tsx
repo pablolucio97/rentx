@@ -16,9 +16,6 @@ import { api } from '../../services/api';
 import { CarProps } from '../../types/cars'
 import { Loading } from '../../components/Loading';
 
-
-
-
 export function Home() {
 
   const navigation = useNavigation()
@@ -26,9 +23,9 @@ export function Home() {
   const [cars, setCars] = useState<CarProps[]>([])
   const [loading, setLoading] = useState(true)
 
-  function handleNavigation(screen: string) {
+  function handleNavigation(screen: string, car: CarProps) {
     //@ts-ignore
-    navigation.navigate({ name: screen })
+    navigation.navigate(screen, {car})
   }
 
   useEffect(() => {
@@ -75,7 +72,7 @@ export function Home() {
             <Car
               data={item}
               //@ts-ignore
-              onPress={() => handleNavigation('CarDetails')}
+              onPress={() => handleNavigation('CarDetails',  item )}
             />}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}

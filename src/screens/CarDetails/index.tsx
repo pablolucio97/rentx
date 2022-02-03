@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { useTheme } from 'styled-components';
 
@@ -30,17 +30,20 @@ import {
     Rent,
     Footer
 } from './styles';
+import { CarProps } from '../../types/cars';
+import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
+
+interface RouteParamsProps {
+    car: CarProps
+}
 
 export function CarDetails() {
 
     const theme = useTheme()
-
-    const carImages = [
-        'https://www.pngkit.com/png/detail/237-2375768_2018-porsche-718-cayman-vs-porsche-718-cayman.png',
-        'https://www.pngkit.com/png/detail/237-2375768_2018-porsche-718-cayman-vs-porsche-718-cayman.png'
-    ]
-
+    const route = useRoute()
     const navigation = useNavigation()
+
+    const { car } = route.params as RouteParamsProps
 
     function handleNavigation(screen: string) {
         //@ts-ignore
@@ -58,7 +61,7 @@ export function CarDetails() {
             </Header>
             <CarImages>
                 <ImageSlider
-                    imageUrl={carImages}
+                    imageUrl={car.photos}
                 />
             </CarImages>
             <Content
@@ -70,44 +73,25 @@ export function CarDetails() {
             >
                 <Details>
                     <Description>
-                        <Brand>Lamborghini</Brand>
-                        <Name>Huracan</Name>
+                        <Brand>{car.brand}</Brand>
+                        <Name>{car.name}</Name>
                     </Description>
                     <Rent>
-                        <Period>Ao dia</Period>
-                        <Price>R$ 580</Price>
+                        <Period>{car.rent.period}</Period>
+                        <Price>R$ {car.rent.price}</Price>
                     </Rent>
                 </Details>
                 <Acessories>
-                    <Acessory
-                        name='362Km/h'
-                        icon={SpeedSvg}
-                    />
-                    <Acessory
-                        name='3.2s'
-                        icon={AcelerationSvg}
-                    />
-                    <Acessory
-                        name='380HP'
-                        icon={ForceSvg}
-                    />
-                    <Acessory
-                        name='Automatico'
-                        icon={Exchangevg}
-                    />
-                    <Acessory
-                        name='Gasolina'
-                        icon={GasolineSvg}
-                    />
-                    <Acessory
-                        name='2 pessoas'
-                        icon={PeopleSvg}
-                    />
+                    {car.accessories.map(accessory => (
+                          <Acessory
+                          key={accessory.type}
+                          name={accessory.name}
+                          icon={getAccessoryIcon(accessory.type)}
+                      />
+                    ))}
                 </Acessories>
                 <About>
-                    Este é automóvel desportivo.
-                    Surgiu do lendário touro de lide indultado na praça Real Maestranza
-                    de Sevilla. É um belíssimo carro para quem gosta de acelerar.
+                    {car.about}
                 </About>
             </Content>
             <Footer>

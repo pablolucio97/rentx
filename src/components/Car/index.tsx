@@ -15,11 +15,13 @@ import {
 import GasolineSvg from '../../../assets/gasoline.svg'
 import { TouchableOpacityProps } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 
 interface CarData {
     brand: string;
     name: string;
     thumbnail: string;
+    fuel_type: string;
     rent: {
         period: string;
         price: number;
@@ -40,6 +42,7 @@ export function Car({ data, ...rest }: Props) {
         navigation.navigate({ name: screen })
     }
 
+    const MotorIcon = getAccessoryIcon(data.fuel_type)
 
     return (
         //@ts-ignore
@@ -55,7 +58,7 @@ export function Car({ data, ...rest }: Props) {
                         <Price>{`R$ ${data.rent.price}`}</Price>
                     </Rent>
                     <Type>
-                        <GasolineSvg />
+                        <MotorIcon/>
                     </Type>
                 </About>
             </Details>
