@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { StatusBar } from 'react-native';
 import { useTheme } from 'styled-components';
-import { BackButton } from '../../components/BackButton';
+import { CalendarProps } from 'react-native-calendars'
 
 import ArrowSvg from '../../../assets/arrow.svg'
 
@@ -15,12 +16,33 @@ import {
   Content,
   Footer,
 } from './styles';
-import { StatusBar } from 'react-native';
 import { Button } from '../../components/Button';
-import { Calendar } from '../../components/Calendar';
+import { BackButton } from '../../components/BackButton';
+import { Calendar, DayProps } from '../../components/Calendar';
+import { generateInterval } from '../../components/Calendar/generateInterval'
+
+
 export function Scheduling() {
 
   const theme = useTheme()
+
+  const [lastSelesectedDate, setLastSelectedDate] = useState({} as DayProps)
+  const [markedDatesInterval, setMarkedDatesInterval] = useState({})
+
+  function handleChangeDate(date: DayProps) {
+    let startDate = !lastSelesectedDate ? date : lastSelesectedDate
+    let endDate = date
+
+    if (startDate.timestamp > endDate.timestamp) {
+      startDate = endDate
+      endDate = startDate
+    }
+
+    setLastSelectedDate(endDate)
+    const interval = generateInterval(startDate, endDate)
+    setMarkedDatesInterval(interval)
+
+  }
 
   return (
     <Container>
@@ -58,7 +80,10 @@ export function Scheduling() {
       <Content
         showsVerticalScrollIndicator={false}
       >
-        <Calendar />
+        <Calendar
+          markedDates={markedDatesInterval}
+          onDayPress={handleChangeDate}
+        />
       </Content>
       <Footer>
         <Button

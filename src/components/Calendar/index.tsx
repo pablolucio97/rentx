@@ -3,64 +3,25 @@ import { Container } from './styles';
 import { Feather } from '@expo/vector-icons'
 import { useTheme } from 'styled-components'
 
-import { Calendar as CustomCalendar, LocaleConfig } from 'react-native-calendars'
+import { Calendar as CustomCalendar, LocaleConfig, CalendarProps } from 'react-native-calendars'
+import { localeConfig } from './localeConfig';
 
-export function Calendar() {
+export interface DayProps{
+    dateString: string;
+    day: number;
+    month: number;
+    year: number;
+    timestamp: number;
+}
+
+
+export function Calendar( {markedDates, onDayPress} :  CalendarProps) {
 
     const theme = useTheme()
-    LocaleConfig.locales['pt-br'] = {
-        monthNames: [
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-            'Junho',
-            'Julho',
-            'Agosto',
-            'Setembro',
-            'Outubro',
-            'Novembro',
-            'Dezembro'
-        ],
-        monthNamesShort: [
-            'Jan',
-            'FeV',
-            'Mar',
-            'Abr',
-            'Mai',
-            'Jun',
-            'Jul',
-            'Ago',
-            'Set',
-            'Out',
-            'Nov',
-            'Dez'
-        ],
-        dayNames: [
-            'Domingo',
-            'Segunda',
-            'Terça',
-            'Quarta',
-            'Quinta',
-            'Sexta',
-            'Sabado'
-        ],
-        dayNamesShort: [
-            'DOM',
-            'SEG',
-            'TER',
-            'QUA',
-            'QUI',
-            'SEX',
-            'SAB'
-        ],
-        //@ts-ignore
-        today: 'Hoje'
-    }
 
+    LocaleConfig.locales['pt-br'] = localeConfig
     LocaleConfig.defaultLocale = 'pt-br'
-
+    
     return (
         <Container>
             <CustomCalendar
@@ -88,6 +49,9 @@ export function Calendar() {
                 }}
                 firstDay={1}
                 minDate={String(new Date())}
+                markingType='period'
+                markedDates={markedDates}
+                onDayPress={onDayPress}
             />
         </Container>
     )
