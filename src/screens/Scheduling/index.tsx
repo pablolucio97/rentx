@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { StatusBar } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import { useTheme } from 'styled-components';
 import { CalendarProps } from 'react-native-calendars'
+import { format, parseISO } from 'date-fns'
+import { useNavigation, useRoute} from '@react-navigation/native'
+import {SingleCarProps} from '../../types/cars'
 
 import ArrowSvg from '../../../assets/arrow.svg'
 
@@ -20,19 +23,29 @@ import { Button } from '../../components/Button';
 import { BackButton } from '../../components/BackButton';
 import { Calendar, DayProps } from '../../components/Calendar';
 import { generateInterval } from '../../components/Calendar/generateInterval'
+import { getPlatformDate } from '../../utils/getPlatformDate';
 
+export interface RentalPeriodProps {
+  startDateFormatted: string;
+  endDateFormatted: string;
+}
 
 export function Scheduling() {
 
   const theme = useTheme()
+  const navigation = useNavigation()
+  const route = useRoute()
+
+  const { car } = route.params as SingleCarProps
 
   const [lastSelesectedDate, setLastSelectedDate] = useState({} as DayProps)
   const [markedDatesInterval, setMarkedDatesInterval] = useState({})
+  const [rentalPeriod, setRentalPeriod] = useState<RentalPeriodProps>({} as RentalPeriodProps)
 
   function handleChangeDate(date: DayProps) {
     let startDate = !lastSelesectedDate ? date : lastSelesectedDate
     let endDate = date
-
+    
     if (startDate.timestamp > endDate.timestamp) {
       startDate = endDate
       endDate = startDate
@@ -42,6 +55,27 @@ export function Scheduling() {
     const interval = generateInterval(startDate, endDate)
     setMarkedDatesInterval(interval)
 
+    const firstDate = Object.keys(interval)[0]
+    const lastDate = Object.keys(interval)[Object.keys(interval).length - 1]
+
+    setRentalPeriod({
+      startDateFormatted: format(getPlatformDate(parseISO(firstDate)), 'dd/MM/yyyy'),
+      endDateFormatted: format(getPlatformDate(parseISO(lastDate)), 'dd/MM/yyyy'),
+
+    })
+
+  }
+
+  function handleConfirmRental() {
+    if (!rentalPeriod.startDateFormatted || !rentalPeriod.endDateFormatted) {
+      Alert.alert("Dados insuficientes", "Por favor, selecione uma data para continuar.")
+    }else{
+      //@ts-ignore
+      navigation.navigate( 'SchedulingDetails', { 
+        car,
+        dates: Object.keys(markedDatesInterval)
+       })
+    }    
   }
 
   return (
@@ -53,7 +87,7 @@ export function Scheduling() {
       />
       <Header>
         <BackButton
-          onPress={() => { }}
+          onPress={() =>  navigation.goBack() }
           color={theme.colors.shape}
         />
         <Title>Escolha uma {'\n'} data  de início e {'\n'}fim do aluguel</Title>
@@ -61,8 +95,11 @@ export function Scheduling() {
           <DateInfo>
             <DateTitle>de</DateTitle>
             <DateValue
-              selected={false}
-            />
+              selected={!!rentalPeriod.startDateFormatted}
+            >
+              {rentalPeriod.startDateFormatted}
+
+            </DateValue>
           </DateInfo>
 
           <ArrowSvg />
@@ -70,9 +107,9 @@ export function Scheduling() {
           <DateInfo>
             <DateTitle>até</DateTitle>
             <DateValue
-              selected
+              selected={!!rentalPeriod.startDateFormatted}
             >
-              12/02/2022
+              {rentalPeriod.endDateFormatted}
             </DateValue>
           </DateInfo>
         </RentalPeriod>
@@ -88,8 +125,10 @@ export function Scheduling() {
       <Footer>
         <Button
           title="Confirmar"
+          onPress={handleConfirmRental}
         />
       </Footer>
     </Container>
   )
 }
+

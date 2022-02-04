@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
 import { Feather } from '@expo/vector-icons'
+import { SingleCarProps } from '../../types/cars'
 
 
 import AcelerationSvg from '../../../assets/car.svg';
@@ -39,24 +40,31 @@ import {
     RentalPriceQuota,
     Footer
 } from './styles';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+interface RouteParamsProps {
+    car: SingleCarProps
+}
 
 export function SchedulingDetails() {
 
     const theme = useTheme()
+    const navigation = useNavigation()
+    const route = useRoute()
+
+    const { car } = route.params as SingleCarProps
 
     const carImages = [
         'https://www.pngkit.com/png/detail/237-2375768_2018-porsche-718-cayman-vs-porsche-718-cayman.png',
         'https://www.pngkit.com/png/detail/237-2375768_2018-porsche-718-cayman-vs-porsche-718-cayman.png'
     ]
 
-    const navigation = useNavigation()
 
-    function handleNavigation(screen: string){
-      //@ts-ignore
-      navigation.navigate({name: screen})
+    function handleNavigation(screen: string) {
+        //@ts-ignore
+        navigation.navigate({ name: screen })
     }
-  
+
 
     return (
         <Container>
@@ -80,12 +88,12 @@ export function SchedulingDetails() {
             >
                 <Details>
                     <Description>
-                        <Brand>Lamborghini</Brand>
-                        <Name>Huracan</Name>
+                        <Brand>{car.brand}</Brand>
+                        <Name>{car.name}</Name>
                     </Description>
                     <Rent>
-                        <Period>Ao dia</Period>
-                        <Price>R$ 580</Price>
+                        <Period>{car.rent.period}</Period>
+                        <Price>{car.rent.price}</Price>
                     </Rent>
                 </Details>
                 <Acessories>
@@ -131,7 +139,7 @@ export function SchedulingDetails() {
                         size={12}
                         color={theme.colors.text}
                     />
-                       <DateInfo>
+                    <DateInfo>
                         <DateTitle>Até</DateTitle>
                         <DateValue>10/02/2022</DateValue>
                     </DateInfo>

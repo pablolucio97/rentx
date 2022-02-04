@@ -1,15 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTheme } from 'styled-components';
-
-import { api } from '../../services/api'
-
-import AcelerationSvg from '../../../assets/car.svg';
-import Exchangevg from '../../../assets/exchange.svg';
-import ForceSvg from '../../../assets/force.svg';
-import GasolineSvg from '../../../assets/gasoline.svg';
-import PeopleSvg from '../../../assets/people.svg';
-import SpeedSvg from '../../../assets/speed.svg';
 
 import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
@@ -30,12 +21,9 @@ import {
     Rent,
     Footer
 } from './styles';
-import { CarProps } from '../../types/cars';
+import {SingleCarProps } from '../../types/cars';
 import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 
-interface RouteParamsProps {
-    car: CarProps
-}
 
 export function CarDetails() {
 
@@ -43,11 +31,11 @@ export function CarDetails() {
     const route = useRoute()
     const navigation = useNavigation()
 
-    const { car } = route.params as RouteParamsProps
+    const { car } = route.params as SingleCarProps
 
-    function handleNavigation(screen: string) {
+    function handleNavigation() {
         //@ts-ignore
-        navigation.navigate({ name: screen })
+        navigation.navigate('Scheduling', {car})
     }
 
     return (
@@ -83,11 +71,11 @@ export function CarDetails() {
                 </Details>
                 <Acessories>
                     {car.accessories.map(accessory => (
-                          <Acessory
-                          key={accessory.type}
-                          name={accessory.name}
-                          icon={getAccessoryIcon(accessory.type)}
-                      />
+                        <Acessory
+                            key={accessory.type}
+                            name={accessory.name}
+                            icon={getAccessoryIcon(accessory.type)}
+                        />
                     ))}
                 </Acessories>
                 <About>
@@ -97,7 +85,7 @@ export function CarDetails() {
             <Footer>
                 <Button
                     title='Confirmar'
-                    onPress={() => handleNavigation('SchedulingDetails')}
+                    onPress={handleNavigation}
                 />
             </Footer>
         </Container>

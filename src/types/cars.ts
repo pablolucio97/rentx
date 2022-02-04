@@ -18,3 +18,6 @@ export interface AcessoryProps {
     photos: string[];
   }
   
+export interface SingleCarProps {
+  car: CarProps
+}
