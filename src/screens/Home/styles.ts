@@ -39,3 +39,18 @@ export const TotalCars = styled.Text`
 export const CarList = styled(FlatList as new (props : FlatListProps<CarProps>) => FlatList<CarProps>)`
   padding: 24px 40px 24px 12px;
   `
+
+export const MyCarButtons = styled.TouchableOpacity.attrs({
+  activeOpacity: .8
+})`
+  width: 56px;
+  height: 56px;
+  border-radius: 30px;
+  background-color: ${({ theme }) => theme.colors.main};
+
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+`
