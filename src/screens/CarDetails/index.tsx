@@ -1,28 +1,26 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { useTheme } from 'styled-components';
-
 import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
 import { Button } from '../../components/Button';
-
 import { ImageSlider } from '../../components/ImageSlider';
+import { ParamsProps } from '../../types/cars';
+import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 import {
     About, Acessories, Brand,
     CarImages,
     Container,
     Content,
     Description,
-    Details,
-    Header,
+    Details, Footer, Header,
     Name,
     Period,
     Price,
-    Rent,
-    Footer
+    Rent
 } from './styles';
-import {SingleCarProps } from '../../types/cars';
-import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
+
+
 
 
 export function CarDetails() {
@@ -31,7 +29,7 @@ export function CarDetails() {
     const route = useRoute()
     const navigation = useNavigation()
 
-    const { car } = route.params as SingleCarProps
+    const { car } = route.params as ParamsProps
 
     function handleNavigation() {
         //@ts-ignore

@@ -1,29 +1,22 @@
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { format, parseISO } from 'date-fns';
 import React, { useState } from 'react';
 import { Alert, StatusBar } from 'react-native';
 import { useTheme } from 'styled-components';
-import { CalendarProps } from 'react-native-calendars'
-import { format, parseISO } from 'date-fns'
-import { useNavigation, useRoute} from '@react-navigation/native'
-import {SingleCarProps} from '../../types/cars'
-
-import ArrowSvg from '../../../assets/arrow.svg'
-
-import {
-  Container,
-  Header,
-  Title,
-  RentalPeriod,
-  DateInfo,
-  DateTitle,
-  DateValue,
-  Content,
-  Footer,
-} from './styles';
-import { Button } from '../../components/Button';
+import ArrowSvg from '../../../assets/arrow.svg';
 import { BackButton } from '../../components/BackButton';
+import { Button } from '../../components/Button';
 import { Calendar, DayProps } from '../../components/Calendar';
-import { generateInterval } from '../../components/Calendar/generateInterval'
+import { generateInterval } from '../../components/Calendar/generateInterval';
+import { ParamsProps } from '../../types/cars';
 import { getPlatformDate } from '../../utils/getPlatformDate';
+import {
+  Container, Content, DateInfo,
+  DateTitle,
+  DateValue, Footer, Header, RentalPeriod, Title
+} from './styles';
+
+
 
 export interface RentalPeriodProps {
   startDateFormatted: string;
@@ -36,7 +29,7 @@ export function Scheduling() {
   const navigation = useNavigation()
   const route = useRoute()
 
-  const { car } = route.params as SingleCarProps
+  const { car } = route.params as ParamsProps
 
   const [lastSelesectedDate, setLastSelectedDate] = useState({} as DayProps)
   const [markedDatesInterval, setMarkedDatesInterval] = useState({})
@@ -63,6 +56,8 @@ export function Scheduling() {
       endDateFormatted: format(getPlatformDate(parseISO(lastDate)), 'dd/MM/yyyy'),
 
     })
+
+    console.log(markedDatesInterval, rentalPeriod)
 
   }
 

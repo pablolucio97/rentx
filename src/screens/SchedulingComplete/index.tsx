@@ -43,7 +43,7 @@ export function SchedulingComplete() {
                     />
                     <Title>Carro alugado</Title>
                     <Message>
-                        Agoraoce só precisa ir {'\n'}
+                        Agora você só precisa ir {'\n'}
                         até uma consecionária RentX {'\n'}
                         e pegar o seu automóvel.
                     </Message>
