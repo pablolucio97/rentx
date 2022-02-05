@@ -61,6 +61,11 @@ export function SchedulingDetails() {
                 id: car.id,
                 unavailable_dates
             })
+
+            await api.post(`schedules_byuser`, {
+                user_id: 1,
+                car
+            })
                 //@ts-ignore
                 .then(() => navigation.navigate('SchedulingComplete'))
         } catch (error) {

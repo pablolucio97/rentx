@@ -36,7 +36,7 @@ export function Scheduling() {
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriodProps>({} as RentalPeriodProps)
 
   function handleChangeDate(date: DayProps) {
-    let startDate = !lastSelesectedDate ? date : lastSelesectedDate
+    let startDate = !lastSelesectedDate.timestamp ? date : lastSelesectedDate
     let endDate = date
     
     if (startDate.timestamp > endDate.timestamp) {
