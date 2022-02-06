@@ -8,6 +8,7 @@ import { BackButton } from '../../components/BackButton';
 import { Button } from '../../components/Button';
 import { Calendar, DayProps } from '../../components/Calendar';
 import { generateInterval } from '../../components/Calendar/generateInterval';
+import { Loading } from '../../components/Loading';
 import { ParamsProps } from '../../types/cars';
 import { getPlatformDate } from '../../utils/getPlatformDate';
 import {
@@ -33,12 +34,13 @@ export function Scheduling() {
 
   const [lastSelesectedDate, setLastSelectedDate] = useState({} as DayProps)
   const [markedDatesInterval, setMarkedDatesInterval] = useState({})
+  const [loading, setLoading] = useState(true)
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriodProps>({} as RentalPeriodProps)
 
   function handleChangeDate(date: DayProps) {
     let startDate = !lastSelesectedDate.timestamp ? date : lastSelesectedDate
     let endDate = date
-    
+
     if (startDate.timestamp > endDate.timestamp) {
       startDate = endDate
       endDate = startDate
@@ -57,21 +59,22 @@ export function Scheduling() {
 
     })
 
-    console.log(markedDatesInterval, rentalPeriod)
 
   }
 
   function handleConfirmRental() {
     if (!rentalPeriod.startDateFormatted || !rentalPeriod.endDateFormatted) {
       Alert.alert("Dados insuficientes", "Por favor, selecione uma data para continuar.")
-    }else{
+    } else {
+      setLoading(false)
       //@ts-ignore
-      navigation.navigate( 'SchedulingDetails', { 
+      navigation.navigate('SchedulingDetails', {
         car,
         dates: Object.keys(markedDatesInterval)
-       })
-    }    
+      })
+    }
   }
+
 
   return (
     <Container>
@@ -82,7 +85,7 @@ export function Scheduling() {
       />
       <Header>
         <BackButton
-          onPress={() =>  navigation.goBack() }
+          onPress={() => navigation.goBack()}
           color={theme.colors.shape}
         />
         <Title>Escolha uma {'\n'} data  de início e {'\n'}fim do aluguel</Title>
@@ -119,7 +122,8 @@ export function Scheduling() {
       </Content>
       <Footer>
         <Button
-          title="Confirmar"
+          title='Confirmar'
+          enabled={!!rentalPeriod.startDateFormatted}
           onPress={handleConfirmRental}
         />
       </Footer>

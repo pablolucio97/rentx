@@ -40,12 +40,10 @@ export function SchedulingDetails() {
     const route = useRoute()
 
     const { car, dates } = route.params as ParamsProps
-
     const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>({} as RentalPeriod)
+    const [loading, setLoading] = useState(false)
 
     const rentalTotal = Number(dates.length * car.rent.price)
-
-    console.log(car.id)
 
     async function handleConfirmRental() {
 
@@ -56,20 +54,25 @@ export function SchedulingDetails() {
                 ...schedulesByCar.data.unavailable_dates,
                 ...dates
             ]
+            
+            setLoading(true)
 
             await api.put(`/schedules_bycars/${car.id}`, {
                 id: car.id,
-                unavailable_dates
+                unavailable_dates,
             })
 
             await api.post(`schedules_byuser`, {
                 user_id: 1,
-                car
+                car,
+                startDate: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
+                endDate: format(getPlatformDate(new Date(dates[dates.length - 1])), 'dd/MM/yyyy')
             })
                 //@ts-ignore
                 .then(() => navigation.navigate('SchedulingComplete'))
         } catch (error) {
             Alert.alert('Não foi possível finalizar o agendamento', 'Carro indisponível para este dia.')
+            setLoading(false)
         }
 
     }
@@ -154,8 +157,11 @@ export function SchedulingDetails() {
             </Content>
             <Footer>
                 <Button
-                    title='Confirmar'
+                    title='Alugar carro'
+                    color={theme.colors.success}
                     onPress={handleConfirmRental}
+                    enabled={!loading}
+                    loading={loading}
                 />
             </Footer>
         </Container>

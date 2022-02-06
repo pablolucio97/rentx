@@ -84,6 +84,7 @@ export function CarDetails() {
                 <Button
                     title='Confirmar'
                     onPress={handleNavigation}
+                    color={theme.colors.success}
                 />
             </Footer>
         </Container>

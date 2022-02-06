@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components'
 import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons'
 
 import { CarProps } from '../../types/cars'
 import { api } from '../../services/api';
 import { Car } from '../../components/Car'
 import { BackButton } from '../../components/BackButton';
+import { Loading } from '../../components/Loading'
 
 import {
     Container,
@@ -16,13 +18,20 @@ import {
     Appointments,
     AppointmentQuanitty,
     AppointmentTitle,
+    CarWrapper,
+    CarFooterTitle,
+    CarFooterPeriod,
+    CarFooterDate,
+    CarFooter
 } from './styles';
 import { FlatList } from 'react-native';
 
 interface UserCarProps {
     id: string;
     user_id: string;
-    car: CarProps
+    car: CarProps;
+    startDate: string;
+    endDate: string;
 }
 
 
@@ -39,7 +48,7 @@ export function MyCars() {
             try {
                 const response = await api.get('/schedules_byuser?user_id=1')
                 setCars(response.data)
-                console.log(cars)
+                setLoading(false)
             } catch (error) {
                 console.log(error)
             }
@@ -58,20 +67,45 @@ export function MyCars() {
                 <SubTitle>Conforto, praticidade e segurança</SubTitle>
             </Header>
             <Content>
-                <Appointments>
-                    <AppointmentTitle>Agendamentos feitos</AppointmentTitle>
-                    <AppointmentQuanitty>{cars.length}</AppointmentQuanitty>
-                </Appointments>
-            <FlatList
-                data={cars}
-                keyExtractor={item => item.id}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                    <Car
-                        data={item.car}
-                    />
-                )}
-            />
+                {
+                    loading ?
+
+                        <Loading
+                            isLoading={loading}
+                        />
+
+                        :
+                        <>
+                            <Appointments>
+                                <AppointmentTitle>Agendamentos feitos</AppointmentTitle>
+                                <AppointmentQuanitty>{cars.length}</AppointmentQuanitty>
+                            </Appointments>
+                            <FlatList
+                                data={cars}
+                                keyExtractor={item => item.id}
+                                showsVerticalScrollIndicator={false}
+                                renderItem={({ item }) => (
+                                    <CarWrapper>
+                                        <Car
+                                            data={item.car}
+                                        />
+                                        <CarFooter>
+                                            <CarFooterTitle>Period</CarFooterTitle>
+                                            <CarFooterPeriod>
+                                                <CarFooterDate>{item.startDate}</CarFooterDate>
+                                                <AntDesign
+                                                    name='arrowright'
+                                                    color={theme.colors.title}
+                                                    size={20}
+                                                />
+                                                <CarFooterDate>{item.endDate}</CarFooterDate>
+                                            </CarFooterPeriod>
+                                        </CarFooter>
+                                    </CarWrapper>
+                                )}
+                            />
+                        </>
+                }
             </Content>
         </Container>
     )
