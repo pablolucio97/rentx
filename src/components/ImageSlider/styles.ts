@@ -6,13 +6,12 @@ interface ImageIndexProps {
 }
 
 export const Container = styled.View`
-  flex: 1;
   justify-content: center;
   align-items: center;
+  margin-top: -64px;
 `;
 export const ImageIndexes = styled.View`
   flex-direction: row;
-  width: 100%;
   justify-content: flex-end;
   padding: 24px;
 `;
