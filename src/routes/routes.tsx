@@ -7,6 +7,7 @@ import { MyCars } from '../screens/MyCars'
 import { Scheduling } from '../screens/Scheduling'
 import { SchedulingComplete } from '../screens/SchedulingComplete'
 import { SchedulingDetails } from '../screens/SchedulingDetails'
+import { Splash } from '../screens/Splash'
 
 
 export function Routes() {
@@ -16,10 +17,12 @@ export function Routes() {
     return (
         <NavigationContainer>
             <Navigator 
+                initialRouteName='Splash'
                 screenOptions={{
                     headerShown: false
                 }}
             >
+                <Screen name='Splash' component={Splash}/>
                 <Screen name='Home' component={Home}/>
                 <Screen name='CarDetails' component={CarDetails}/>
                 <Screen name='Scheduling' component={Scheduling}/>
