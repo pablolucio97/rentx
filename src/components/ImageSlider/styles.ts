@@ -13,7 +13,7 @@ export const Container = styled.View`
 export const ImageIndexes = styled.View`
   flex-direction: row;
   justify-content: flex-end;
-  padding: 24px;
+  padding: 0 0 24px;
 `;
 
 export const ImageIndex = styled.View<ImageIndexProps>`
@@ -28,7 +28,7 @@ export const ImageIndex = styled.View<ImageIndexProps>`
 export const CarImage = styled.Image`
   width: 280px;
   height: 132px;
-`;
+  `;
 
 export const CarImageWrapper = styled.View`
   width: ${Dimensions.get("window").width}px;

@@ -22,7 +22,7 @@ import {
   `;
   
   export const Content = styled.ScrollView`
-    margin-top: ${getStatusBarHeight() + 12}px;
+    margin-top: ${getStatusBarHeight() - 72}px;
   `;
   
   export const Details = styled.View`

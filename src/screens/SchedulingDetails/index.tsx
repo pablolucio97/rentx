@@ -2,7 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import { useTheme } from 'styled-components';
 import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
@@ -14,16 +14,28 @@ import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 import { getPlatformDate } from '../../utils/getPlatformDate';
 import {
     Acessories,
-    Brand, CalenderIconContainer, CarImages,
+    Brand,
+    CalenderIconContainer,
+    CarImages,
     Container,
-    Content, DateInfo, DateTitle,
-    DateValue, Description,
-    Details, Footer, Header,
+    Content,
+    DateInfo,
+    DateTitle,
+    DateValue,
+    Description,
+    Details,
+    Footer,
+    Header,
     Name,
     Period,
     Price,
     Rent,
-    RentalPeriod, RentalPrice, RentalPriceDetails, RentalPriceLabel, RentalPriceQuota, RentalPriceTotal
+    RentalPeriod,
+    RentalPrice,
+    RentalPriceDetails,
+    RentalPriceLabel,
+    RentalPriceQuota,
+    RentalPriceTotal
 } from './styles';
 
 
@@ -94,13 +106,19 @@ export function SchedulingDetails() {
                     onPress={() => navigation.goBack()}
                 />
             </Header>
+            <StatusBar 
+                barStyle='dark-content'
+                backgroundColor='transparent'
+                translucent
+            />
             <CarImages>
                 <ImageSlider
                     imageUrl={car.photos}
                 />
             </CarImages>
             <Content
-                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                overScrollMode='never'
                 contentContainerStyle={{
                     padding: 24,
                     alignItems: 'center'

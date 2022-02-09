@@ -7,6 +7,7 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.shape};
+  padding-bottom: 24px;
   `;
 
 export const Header = styled.View`

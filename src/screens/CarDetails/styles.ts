@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background_primary};
+  padding-top: 24px;
 `;
 export const Header = styled.View`
   flex-direction: row;
@@ -28,8 +29,8 @@ export const Details = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
-  margin-top: 38px;
+  
+  margin-top: -24px;
 `;
 
 export const Description = styled.View``;
