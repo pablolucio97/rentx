@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
-import {createStackNavigator} from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import { CarDetails } from '../screens/CarDetails'
 import { Home } from '../screens/Home'
@@ -12,23 +12,27 @@ import { Splash } from '../screens/Splash'
 
 export function Routes() {
 
-    const {Navigator, Screen} = createStackNavigator()
+    const { Navigator, Screen } = createStackNavigator()
 
     return (
         <NavigationContainer>
-            <Navigator 
+            <Navigator
                 initialRouteName='Splash'
                 screenOptions={{
                     headerShown: false
                 }}
             >
-                <Screen name='Splash' component={Splash}/>
-                <Screen name='Home' component={Home}/>
-                <Screen name='CarDetails' component={CarDetails}/>
-                <Screen name='Scheduling' component={Scheduling}/>
-                <Screen name='MyCars' component={MyCars}/>
-                <Screen name='SchedulingDetails' component={SchedulingDetails}/>
-                <Screen name='SchedulingComplete' component={SchedulingComplete}/>
+                <Screen name='Splash' component={Splash} />
+                <Screen name='Home' component={Home}
+                    options={
+                        { gestureEnabled: false }
+                    }
+                />
+                <Screen name='CarDetails' component={CarDetails} />
+                <Screen name='Scheduling' component={Scheduling} />
+                <Screen name='MyCars' component={MyCars} />
+                <Screen name='SchedulingDetails' component={SchedulingDetails} />
+                <Screen name='SchedulingComplete' component={SchedulingComplete} />
             </Navigator>
         </NavigationContainer>
     )
