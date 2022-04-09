@@ -1,0 +1,14 @@
+com/pablolucio/rentx/ReactNativeFlipper.java
+ com.pablolucio.rentx.ReactNativeFlipper
+ com.pablolucio.rentx.ReactNativeFlipper$1
+ com.pablolucio.rentx.ReactNativeFlipper$2
+ com.pablolucio.rentx.ReactNativeFlipper$2$1
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList
+com/pablolucio/rentx/MainApplication.java
+ com.pablolucio.rentx.MainApplication
+ com.pablolucio.rentx.MainApplication$1
+com/pablolucio/rentx/BuildConfig.java
+ com.pablolucio.rentx.BuildConfig
+com/pablolucio/rentx/MainActivity.java
+ com.pablolucio.rentx.MainActivity
